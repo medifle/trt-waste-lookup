@@ -5,11 +5,12 @@
 ## Design
 
 client
-  - fetch request only receive necessary data from express server
+  - [ ] fetch request only receive necessary data from express server
+  - [ ] favourites data should store locally
+  - [ ] mobile devices support
 
 server
-  - retrieve lookup data on start
-  - update json data periodically
-  - handle request from client, lookup for the query string based on keywords (we can process the keywords list further, like replacing spaces with empty string to expand the potential match. Therefore 'take out' could be matched by 'takeout')
-  - send lookup results to client
-  - favourites data should store locally
+  - [x] retrieve lookup data on start
+  - [ ] update json data periodically
+  - [x] handle request from client, lookup for the query string based on keywords (we can process the keywords list further, like replacing spaces with empty string to expand the potential match. Therefore 'take out' could be matched by 'takeout')
+  - [x] send lookup results to client
