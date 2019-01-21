@@ -141,6 +141,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let favArray = getFavArray()
   dataFromLocal.resData = favArray
-  console.log(dataFromLocal)
   renderWaste(dataFromLocal, favourites)
 })
