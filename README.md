@@ -13,7 +13,7 @@ client
 
 server
   - [x] retrieve lookup data on start
-  - [ ] update json data periodically
+  - [x] update JSON database periodically
   - [x] handle request from client, lookup for the query string based on `keywords`
     - we can process the `keywords` list further, like replacing spaces with empty string to expand the potential match. Therefore 'take out' could be matched by 'takeout'
   - [x] send lookup results to client

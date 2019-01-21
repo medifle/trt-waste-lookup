@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const request = require('request') //npm module for easy http requests
-
 const PORT = process.env.PORT || 3000
 const ROOT_DIR = '/public' //root directory for our static pages
+const dbURL = `https://secure.toronto.ca/cc_sr_v1/data/swm_waste_wizard_APR?limit=1000`
 
 // Middleware
 app.use(express.json()) //get body payload for post method in express
@@ -13,16 +13,22 @@ app.use(express.static(path.join(__dirname, ROOT_DIR))) //provide static server
 let data
 // let cache = new Map() TODO:
 
-request(
-  `https://secure.toronto.ca/cc_sr_v1/data/swm_waste_wizard_APR?limit=1000`,
-  {json: true},
-  function(error, response, body) {
-    if (error) console.log(error, body)
-    if (!error && response.statusCode == 200) {
-      data = body
+const updateDB = () => {
+  request(
+    dbURL,
+    {json: true},
+    function(error, response, body) {
+      if (error) console.log(error, body)
+      if (!error && response.statusCode == 200) {
+        console.log('database updated!')
+        data = body
+      }
     }
-  }
-)
+  )
+}
+updateDB()
+const intervalID = setInterval(updateDB, 86400000) // 24h
+
 
 const testPotentialKeywords = (target, keywords) => {
   let str1 = keywords.replace(/[\(\)]/g, '') // remove parentheses
