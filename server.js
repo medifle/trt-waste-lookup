@@ -14,21 +14,16 @@ let data
 // let cache = new Map() TODO:
 
 const updateDB = () => {
-  request(
-    dbURL,
-    {json: true},
-    function(error, response, body) {
-      if (error) console.log(error, body)
-      if (!error && response.statusCode == 200) {
-        console.log('database updated!')
-        data = body
-      }
+  request(dbURL, {json: true}, function(error, response, body) {
+    if (error) console.log(error, body)
+    if (!error && response.statusCode == 200) {
+      console.log('database updated!')
+      data = body
     }
-  )
+  })
 }
 updateDB()
 const intervalID = setInterval(updateDB, 86400000) // 24h
-
 
 const testPotentialKeywords = (target, keywords) => {
   let str1 = keywords.replace(/[\(\)]/g, '') // remove parentheses
