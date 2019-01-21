@@ -2,7 +2,7 @@
 
 `trt-waste-lookup` is a web app to search for waste items using the Toronto Waste Wizard database
 
-Please try [Hosted version](https://trt-waste-lookup.herokuapp.com/)
+Please try [online version](https://trt-waste-lookup.herokuapp.com/)
 
 ## Design
 
