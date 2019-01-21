@@ -39,12 +39,14 @@ const testPotentialKeywords = (target, keywords) => {
 const lookupWaste = (req, res) => {
   let {waste} = req.body
   let resData = []
-  data.forEach(item => {
-    if (testPotentialKeywords(waste, item.keywords)) {
-      resData.push(item)
-    }
-  })
-  res.send({resData})
+  if (data) {
+    data.forEach(item => {
+      if (testPotentialKeywords(waste, item.keywords)) {
+        resData.push(item)
+      }
+    })
+    res.send({resData})
+  }
 }
 
 // Routes
