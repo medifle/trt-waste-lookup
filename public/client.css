@@ -8,7 +8,8 @@ html {
   height: 100%;
 }
 
-h1, h2 {
+h1,
+h2 {
   margin: 0;
 }
 
@@ -17,14 +18,14 @@ a {
 }
 
 .not-found {
-  text-align: center
+  text-align: center;
 }
 
 body {
   background: #fff;
   margin: 0;
   height: 100%;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333333;
 }
 
@@ -39,19 +40,18 @@ body {
   height: 100px;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, #1D5795, #23985C);
+  background: linear-gradient(to right, #1d5795, #23985c);
   color: #fff;
 }
 
-
 form {
   display: flex;
-  padding: 0.9em .95em 1.05em;
+  padding: 0.9em 0.95em 1.05em;
 }
 
-.form input[type=text] {
+.form input[type='text'] {
   flex-grow: 1;
-  padding: .5em .4em;
+  padding: 0.5em 0.4em;
   border: 1px solid #ccc;
   border-radius: 3px;
   font-size: 1.2em;
@@ -70,7 +70,7 @@ input {
   outline: none;
   padding: 0.5em 0.6em;
   border-radius: 2px;
-  background-color: #23995C;
+  background-color: #23995c;
   color: #fff;
   text-decoration: none;
   cursor: pointer;
@@ -79,7 +79,8 @@ input {
   margin-left: 1.3em;
 }
 
-input:focus, .btn:focus {
+input:focus,
+.btn:focus {
   border-color: #80bdff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
@@ -88,14 +89,15 @@ input:focus, .btn:focus {
   fill: #fff;
 }
 
-
-.result, .favourites {
-  padding: 0 1.2em .75em;
+.result,
+.favourites {
+  padding: 0 1.2em 0.75em;
   font-size: 1.3em;
 }
 
 @media only screen and (max-width: 950px) {
-  .result, .favourites {
+  .result,
+  .favourites {
     font-size: 1.1em;
   }
 }
@@ -110,18 +112,20 @@ input:focus, .btn:focus {
   padding: 0 0.7em;
 }
 
-
-.star svg {
-  height: .9em;
-  width: .9em;
+.item-star svg {
+  height: 0.9em;
+  width: 0.9em;
   cursor: pointer;
-  fill: #AAAAAA;
+  fill: #aaaaaa;
 }
 
-.star.fav svg {
-  fill: #23995C;
+.item-star.fav svg {
+  fill: #23995c;
 }
 
+.item-desc {
+  max-width: 60%;
+}
 
 ul {
   margin: 0;
@@ -133,11 +137,11 @@ ul li {
 
 .favourites {
   margin-top: auto;
-  background-color: #F7FEFA;
+  background-color: #f7fefa;
   padding: 1em;
 }
 
 .favourites h2 {
-  color: #23995C;
+  color: #23995c;
   margin-bottom: 0.7em;
 }
