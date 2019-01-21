@@ -112,10 +112,17 @@ input:focus,
   padding: 0 0.7em;
 }
 
+.item-star {
+  margin-bottom: auto;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none; /* Safari or android */
+}
+
 .item-star svg {
   height: 0.9em;
   width: 0.9em;
-  cursor: pointer;
   fill: #aaaaaa;
 }
 

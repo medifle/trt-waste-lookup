@@ -5,9 +5,9 @@
 ## Design
 
 client
-  - [ ] fetch request only receive necessary data from express server
+  - [x] fetch request only receive necessary data from express server
   - [ ] favourites data should store locally
-  - [ ] mobile devices support
+  - [x] mobile devices support
 
 server
   - [x] retrieve lookup data on start
