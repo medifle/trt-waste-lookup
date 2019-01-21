@@ -54,7 +54,7 @@ const renderWaste = (data, container) => {
 
 const getWasteHandler = e => {
   let waste = wasteInput.value.trim()
-  let url = `http://localhost:3000/waste`
+  let url = `/waste`
   let headers = new Headers()
   headers.append('Content-Type', 'application/json; charset=utf-8')
   let option = {

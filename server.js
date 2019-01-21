@@ -51,7 +51,7 @@ const lookupWaste = (req, res) => {
 
 // Routes
 app.post('/waste', function(req, res) {
-  console.log('reqbody', req.body)
+  console.log('req_body', req.body)
   lookupWaste(req, res)
 })
 
