@@ -6,7 +6,7 @@
 
 client
   - [x] fetch request only receive necessary data from express server
-  - [ ] favourites data should store locally
+  - [x] favourites data should store locally
   - [x] mobile devices support
 
 server

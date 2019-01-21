@@ -108,7 +108,7 @@ input:focus,
 }
 
 .item-title {
-  width: 50%;
+  width: 40%;
   padding: 0 0.7em;
 }
 
@@ -131,7 +131,7 @@ input:focus,
 }
 
 .item-desc {
-  max-width: 60%;
+  width: 62.5%;
 }
 
 ul {
@@ -151,4 +151,8 @@ ul li {
 .favourites h2 {
   color: #23995c;
   margin-bottom: 0.7em;
+}
+
+.fav-list {
+  padding: 0 .1em;
 }

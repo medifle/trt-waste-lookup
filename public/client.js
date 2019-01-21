@@ -1,24 +1,39 @@
 const form = document.getElementById('form')
 const wasteInput = document.getElementById('wasteInput')
 const result = document.getElementById('result')
-let dataFetched
+const favourites = document.getElementById('favourites')
+let dataFetched = Object.create(null)
+let dataFromLocal = Object.create(null)
 
 const parseHTML = raw => {
   var doc = new DOMParser().parseFromString(raw, 'text/html')
   return doc.documentElement.textContent
 }
 
-const renderWaste = data => {
-  result.innerHTML = '' // clear old result before rendering
+const renderWaste = (data, container) => {
+  container.innerHTML = '' // clear old result before rendering
   let wasteArr = data.resData
   // create DOM for each item in the waste array
   wasteArr.forEach((element, index) => {
     let item = document.createElement('div')
     item.className = 'item'
-    item.setAttribute('data-id', index)
+    if (container.id !== 'favourites') {
+      item.setAttribute('data-id', index)
+    } else {
+      item.setAttribute('data-favid', index)
+    }
 
     let star = document.createElement('div')
     star.className = 'item-star'
+    let favArray = getFavArray()
+    let isDuplicate = favArray.some(ele => {
+      return JSON.stringify(ele) === JSON.stringify(element)
+    })
+    if (isDuplicate) { //FIXME:
+      star.classList.add('fav')
+    } else {
+      star.classList.remove('fav')
+    }
     star.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 19.481 19.481" enable-background="new 0 0 19.481 19.481" width="512px" height="512px"><g><path d="m10.201,.758l2.478,5.865 6.344,.545c0.44,0.038 0.619,0.587 0.285,0.876l-4.812,4.169 1.442,6.202c0.1,0.431-0.367,0.77-0.745,0.541l-5.452-3.288-5.452,3.288c-0.379,0.228-0.845-0.111-0.745-0.541l1.442-6.202-4.813-4.17c-0.334-0.289-0.156-0.838 0.285-0.876l6.344-.545 2.478-5.864c0.172-0.408 0.749-0.408 0.921,0z"/></g></svg>`
     star.addEventListener('click', favHandler)
 
@@ -33,7 +48,7 @@ const renderWaste = data => {
     item.appendChild(star)
     item.appendChild(title)
     item.appendChild(desc)
-    result.appendChild(item)
+    container.appendChild(item)
   })
 }
 
@@ -57,7 +72,7 @@ const getWasteHandler = e => {
     })
     .then(data => {
       dataFetched = data
-      renderWaste(data)
+      renderWaste(data, result)
     })
     .catch(err => {
       console.error(err)
@@ -73,12 +88,59 @@ const typeHandler = e => {
   }
 }
 
+const getFavArray = () => {
+  let favStore = localStorage.getItem('favs')
+  if (favStore) {
+    return JSON.parse(favStore)
+  }
+  return []
+}
+
 const favHandler = e => {
-  e.currentTarget.classList.toggle('fav')
-  let favItem = dataFetched.resData[e.currentTarget.parentNode.dataset.id]
+  let isNewFav = false
+  let favClassName = 'fav'
+  if (e.currentTarget.classList.contains(favClassName)) {
+    e.currentTarget.classList.remove(favClassName)
+  } else {
+    isNewFav = true
+    e.currentTarget.classList.add(favClassName)
+  }
+
+  let favArray = getFavArray()
+  let clickedItemData
+  let id = e.currentTarget.parentNode.dataset.id
+  let favid = e.currentTarget.parentNode.dataset.favid
+  if (id) {
+    clickedItemData = dataFetched.resData[id]
+  } else if (favid) {
+    clickedItemData = dataFromLocal.resData[favid]
+  }
+  if (isNewFav) {
+    let isDuplicate = favArray.some(element => {
+      return JSON.stringify(element) === JSON.stringify(clickedItemData)
+    })
+    if (!isDuplicate) {
+      favArray.push(clickedItemData)
+    }
+  } else {
+    favArray = favArray.filter(element => {
+      return JSON.stringify(element) !== JSON.stringify(clickedItemData)
+    })
+  }
+  localStorage.setItem('favs', JSON.stringify(favArray))
+  // console.log(JSON.parse(localStorage.favs)) //test
+  dataFromLocal.resData = getFavArray()
+  renderWaste(dataFromLocal, favourites)
+  renderWaste(dataFetched, result)
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', getWasteHandler)
   wasteInput.addEventListener('input', typeHandler)
+
+  let favArray = getFavArray()
+  dataFromLocal.resData = favArray
+  console.log(dataFromLocal)
+  renderWaste(dataFromLocal, favourites)
 })
