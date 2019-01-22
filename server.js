@@ -22,8 +22,8 @@ const updateDB = () => {
     }
   })
 }
-updateDB()
-const intervalID = setInterval(updateDB, 86400000) // 24h
+updateDB() // update database on server start
+const intervalID = setInterval(updateDB, 86400000) // update database per 24h
 
 const testPotentialKeywords = (target, keywords) => {
   let str1 = keywords.replace(/[\(\)]/g, '') // remove parentheses

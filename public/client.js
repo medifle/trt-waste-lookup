@@ -31,7 +31,7 @@
         return JSON.stringify(ele) === JSON.stringify(element)
       })
       if (isDuplicate) {
-        //FIXME:
+        // the clicked element data is already stored in localStorage
         star.classList.add('fav')
       } else {
         star.classList.remove('fav')
@@ -56,29 +56,33 @@
 
   const getWasteHandler = e => {
     let waste = wasteInput.value.trim()
-    let url = `/waste`
-    let headers = new Headers()
-    headers.append('Content-Type', 'application/json; charset=utf-8')
-    let option = {
-      method: 'post',
-      headers,
-      body: JSON.stringify({waste})
+    if (waste) {
+      let url = `/waste`
+      let headers = new Headers()
+      headers.append('Content-Type', 'application/json; charset=utf-8')
+      let option = {
+        method: 'post',
+        headers,
+        body: JSON.stringify({waste})
+      }
+      fetch(url, option)
+        .then(res => {
+          let contentType = res.headers.get('content-type')
+          if (contentType && contentType.includes('application/json')) {
+            return res.json()
+          }
+          throw new TypeError("Oops, we haven't got JSON!")
+        })
+        .then(data => {
+          dataFetched = data
+          renderWaste(data, result)
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    } else {
+      wasteInput.value = ''
     }
-    fetch(url, option)
-      .then(res => {
-        let contentType = res.headers.get('content-type')
-        if (contentType && contentType.includes('application/json')) {
-          return res.json()
-        }
-        throw new TypeError("Oops, we haven't got JSON!")
-      })
-      .then(data => {
-        dataFetched = data
-        renderWaste(data, result)
-      })
-      .catch(err => {
-        console.error(err)
-      })
 
     e.preventDefault()
     e.stopPropagation()
