@@ -6,12 +6,12 @@ Please try [online version](https://trt-waste-lookup.herokuapp.com/)
 
 ## Design
 
-client
+Client
   - [x] fetch request only receives necessary data rather than the whole database from express server
   - [x] favourites data should store locally
   - [x] mobile devices supported
 
-server
+Server
   - [x] retrieve lookup data on start
   - [x] update JSON database periodically
   - [x] handle request from client, lookup for the query string based on `keywords`
